@@ -1,0 +1,14 @@
+@use '../abstract/mixins.scss';
+
+.game__header {
+    width: 100vw;
+    @include mixins.flex-center;
+
+    &--inner {
+        @include mixins.flex-space-between;
+        max-width: 900px;
+        width: 100%;
+        background-color: yellow;
+        margin-bottom: 32px;
+    }
+}

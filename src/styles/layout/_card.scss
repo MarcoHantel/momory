@@ -1,15 +1,30 @@
 @use '../abstract/_colours.scss';
+@use '../abstract/_mixins.scss';
+
+
+
+
+.limitaion {
+    width: 100vw;
+    height: 100vh;
+    @include mixins.flex-column;
+    background-color: colours.$color-pink;
+
+    #field {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        background-color: black;
+    }
+}
 
 .card {
-
+    padding: 0px;
     height: 120px;
-    width: 105px;
+    width: 120px;
     aspect-ratio: 1/1;
     background-color: transparent;
     border: none;
-
-
-
 
     &__inner {
         position: relative;
@@ -21,14 +36,20 @@
         box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.25);
     }
 
+    // &__face {
+    //     position: absolute;
+    //     inset: 0;
+    //     background-color: colours.$color-pink;
+    //     backface-visibility: hidden;
+    //     border-radius: 15px;
+    //     box-shadow:
+    //         inset 2px -10px 30px colours.$color-anthra;
+
     &__face {
         position: absolute;
         inset: 0;
-        background-color: colours.$color-pink;
         backface-visibility: hidden;
         border-radius: 15px;
-        box-shadow:
-            inset 2px -10px 30px colours.$color-anthra;
 
 
         &--back {
