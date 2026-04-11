@@ -1,0 +1,9 @@
+@use './layout/_card.scss';
+@use './abstract/_colours.scss';
+
+
+body {
+    height: 100vh;
+    background-color: colours.$color-white;
+}
+
