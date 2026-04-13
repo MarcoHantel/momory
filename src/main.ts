@@ -1,77 +1,115 @@
 import './styles/style.scss';
+// import { cardHtml, match, player } from './GameConfig';
+// import { createDeck } from './utilities/shuffleArray';
+import { cardHtml, currentPlayer, } from './GameConfig';
+import { createDeck } from './utilities/shuffleArray';
 
-const boardSize: number = 16;
+
+const boardSize: number = 16; // Das muss abhängig sein vom Button (16, 24 oder 36) und wird an die Funktion cardHtml übergeben, damit die richtige Anzahl an Karten generiert wird. Außerdem muss es an createDeck übergeben werden, damit die richtige Anzahl an Karten gemischt wird.
 
 const fieldRef = document.getElementById('field');
 const header = document.getElementById('header');
 
-const cardFace = [
-    'src/images/cardFace/angular.svg',
-    'src/images/cardFace/bootstrap.svg',
-    'src/images/cardFace/css3.svg',
-    'src/images/cardFace/datenbank.svg',
-    'src/images/cardFace/django.svg',
-    'src/images/cardFace/firebase.svg',
-    'src/images/cardFace/git.svg',
-    'src/images/cardFace/gitHub.svg',
-    'src/images/cardFace/html.svg',
-    'src/images/cardFace/javaScript.svg',
-    'src/images/cardFace/nodeJs.svg',
-    'src/images/cardFace/python.svg',
-    'src/images/cardFace/react.svg',
-    'src/images/cardFace/sass.svg',
-    'src/images/cardFace/terminal.svg',
-    'src/images/cardFace/vsCode.svg',
-    'src/images/cardFace/vue.svg'
-]
 
 init(fieldRef, header)
 
+
 function init(fieldRef: HTMLElement | null, display: HTMLElement | null) {
 
-    headerHtml(header) //Game Header wird generiert
-    cardHtml(fieldRef) //Card content wird generiert
-    flipCard(fieldRef) // Cards flippen
+    const deck = createDeck(boardSize);
+    console.log(deck);
+
+    headerHtml(header); //Game Header wird generiert
+    cardHtml(fieldRef, deck); //Card content wird generiert
+    flipCard(fieldRef); // Cards flippen
 }
+
 
 function flipCard(fieldRef: HTMLElement | null) {
+    if (!fieldRef) return;
 
-    if (fieldRef) {
-        fieldRef.addEventListener("click", event => {
-            const card = (event.target as HTMLAudioElement).closest('.card') as HTMLButtonElement;
-            if (card) {
-                card.classList.toggle('is-flipped');
-            }
-        })
+    // Speichert die erste gewählte Karte
+    let firstCard: HTMLButtonElement | null = null;
+
+    // Speichert die zweite gewählte Karte
+    let secondCard: HTMLButtonElement | null = null;
+
+    // Sperrt das Spielfeld während zwei Karten geprüft werden
+    let lockBoard = false;
+
+    fieldRef.addEventListener("click", event => {
+        const card = (event.target as HTMLElement).closest('.card') as HTMLButtonElement | null;
+
+        // Abbruch, falls kein gültiges Kartenelement geklickt wurde
+        if (!card) return;
+
+        // Keine weiteren Klicks erlauben, solange zwei Karten geprüft werden
+        if (lockBoard) return;
+
+        // Verhindert Doppelklick auf dieselbe Karte
+        if (card === firstCard) return;
+
+        // Bereits gematchte Karten sollen nicht erneut anklickbar sein
+        if (card.classList.contains('matched')) return;
+
+        // Karte visuell umdrehen
+        card.classList.add('is-flipped');
+
+        // Falls noch keine erste Karte gespeichert ist, diese Karte als erste merken
+        if (!firstCard) {
+            firstCard = card;
+            return;
+        }
+
+        // Sonst ist dies die zweite Karte
+        secondCard = card;
+
+        // Board sperren, bis Vergleich abgeschlossen ist
+        lockBoard = true;
+
+        // Karten vergleichen
+        checkForMatch();
+    });
+
+    function checkForMatch() {
+        if (!firstCard || !secondCard) return;
+
+        const firstValue = firstCard.dataset.card;
+        const secondValue = secondCard.dataset.card;
+
+        const isMatch = firstValue === secondValue;
+
+        if (isMatch) {
+            disableCards();
+        } else {
+            unflipCards();
+        }
     }
-}
 
-function cardHtml(fieldRef: HTMLElement | null) {
-    fieldRef!.innerHTML = ''; // Erst leeren
+    function disableCards() {
+        // Gefundene Paare markieren
+        firstCard?.classList.add('matched');
+        secondCard?.classList.add('matched');
 
-    if (boardSize == 16) {
-        cardFace.length = 16;
-    } else if (boardSize == 24) {
-        cardFace.length = 24;
-    } else if (boardSize == 36) {
-        cardFace.length = 36;
+        resetTurn();
     }
 
-    for (let i = 0; i < cardFace.length; i++) {
-        cardHtmlContent(i)
+    function unflipCards() {
+        setTimeout(() => {
+            // Kein Paar → Karten wieder schließen
+            firstCard?.classList.remove('is-flipped');
+            secondCard?.classList.remove('is-flipped');
+
+            resetTurn();
+        }, 1000);
     }
-}
 
-function cardHtmlContent(i: number) {
-    return fieldRef!.innerHTML += /*html*/`
-        <button class="card">
-            <div class="card__inner">
-                <div class="card__face"><img class="card__image" src="src/images/cardBack/cardBack1.svg" alt="Card Back"></div>
-                <div class="card__face card__face--back"><img class="card__image" src="${cardFace[i]}" alt="Card Face"></div>
-            </div>
-        </button>
-
-    `;
+    function resetTurn() {
+        // Für den nächsten Zug alles zurücksetzen
+        firstCard = null;
+        secondCard = null;
+        lockBoard = false;
+    }
 }
 
 function headerHtml(header: HTMLElement | null) {
@@ -80,6 +118,10 @@ function headerHtml(header: HTMLElement | null) {
         <div class="game__header--inner">
 
             <div class="game-display">Hallo</div>
+
+            <div class="current__player">current player:
+                <img class="current__player--image" src="${currentPlayer ? './src/images/items/playerOne.svg' : './src/images/items/playerTwo.svg'}" alt="player signe">
+            </div>
 
             <a class="link__exit" href="#">
               <div class="button__exit">
