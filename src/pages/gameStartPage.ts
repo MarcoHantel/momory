@@ -1,4 +1,3 @@
-
 export function gameStartPage() {
 
     document.getElementById("startScreen")!.innerHTML = /*html*/`

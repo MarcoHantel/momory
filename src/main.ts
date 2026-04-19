@@ -2,6 +2,7 @@ import './styles/style.scss';
 import { cardHtml } from './GameConfig';
 import { createDeck } from './utilities/shuffleArray';
 import { gameStartPage } from './pages/gameStartPage';
+import { createConfigScreen } from './pages/gameConfigPage';    
 
 
 const boardSize: number = 16; // Das muss abhängig sein vom Button (16, 24 oder 36) und wird an die Funktion cardHtml übergeben, damit die richtige Anzahl an Karten generiert wird. Außerdem muss es an createDeck übergeben werden, damit die richtige Anzahl an Karten gemischt wird.
@@ -21,6 +22,7 @@ function init(fieldRef: HTMLElement | null, display: HTMLElement | null) {
 
     const deck = createDeck(boardSize);
     gameStartPage(); //Game Start Page wird generiert
+    createConfigScreen(); //Game Config Page wird generiert
     headerHtml(header); //Game Header wird generiert
     cardHtml(fieldRef, deck); //Card content wird generiert
     flipCard(fieldRef); // Cards flippen

@@ -1,0 +1,11 @@
+@use '../abstract/mixins.scss';
+@use '../abstract/_colours.scss';
+@use '../abstract/fonts.scss';
+
+.config-screen{
+    height: 100vh;
+    width: 100%;
+    background-color: colours.$color-white;
+    @include mixins.flex-center;
+    gap: 100px;
+}
