@@ -65,11 +65,13 @@ export function createConfigScreen() {
 
     <div class="config-screen__image--text" >
         <div>Game theme</div>
+        <img src="./src/images/items/line6.svg" alt="line in yelow">
         <div>Player</div>
+        <img src="./src/images/items/line6.svg" alt="line in yelow">
         <div>Board size</div>
         <div class="config-screen__image--btn">
             <img src="./src/images/items/play_btn.svg" alt="config theme">
-            <div>play</div>
+            <div>Start</div>
         </div>
     </div>
 
