@@ -1,11 +1,79 @@
 @use '../abstract/mixins.scss';
 @use '../abstract/_colours.scss';
 @use '../abstract/fonts.scss';
+ @import '../abstract/fonts.scss';
 
-.config-screen{
+.config-screen__settings-wrapper {
+
+    width: 251px;
+
+    >h1 {
+        font-size: 54px;
+        font-weight: 700;
+        margin-bottom: 0px;
+    }
+
+    >img {
+        width: 100%;
+        margin-bottom: 32px;
+        margin-top: -10px;
+        width: 235px;
+        margin-left: -10px;
+    }
+}
+
+.config-screen {
     height: 100vh;
     width: 100%;
     background-color: colours.$color-white;
     @include mixins.flex-center;
     gap: 100px;
+}
+
+.fieldset {
+    min-inline-size: min-content;
+    border-style: none;
+    padding: 26px 24px;
+
+}
+
+
+.settings__config {
+    @include mixins.flex-center;
+    margin-left: -32px;
+
+    &--headline {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0px;
+    }
+
+    &--img {
+        margin-right: 8px;
+        width: 26px;
+        height: 26px;
+    }
+}
+
+.settings__config {
+
+    &--optins {
+        padding-bottom: 8px;
+    }
+}
+
+.config-screen__image {
+
+    @include mixins.flex-column;
+    align-items: end;
+
+
+    &--text {
+        @include mixins.flex-center;
+        width: 546px;
+        height: 81px;
+        gap: 16px;
+        margin-top: 16px;
+        background-color: colours.$color-lightGrey;
+    }
 }

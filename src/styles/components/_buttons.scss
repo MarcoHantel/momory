@@ -1,5 +1,6 @@
 @use '../abstract/mixins.scss';
 @use '../abstract/_colours.scss';
+@use '../pages/gameconfigpage';
  @import '../abstract/fonts.scss';
 
 .button__exit {
@@ -52,4 +53,11 @@
     &--imgA{
         width: 33px;
     }
+}
+
+.config-screen__image--btn{
+    @include mixins.flex-center;
+    width: 126px;
+    height: 53px;
+    background-color: colours.$color-yellow;
 }
