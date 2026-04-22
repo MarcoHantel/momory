@@ -7,7 +7,7 @@ import { createConfigScreen } from './pages/gameConfigPage';
 
 const boardSize: number = 16; // Das muss abhängig sein vom Button (16, 24 oder 36) und wird an die Funktion cardHtml übergeben, damit die richtige Anzahl an Karten generiert wird. Außerdem muss es an createDeck übergeben werden, damit die richtige Anzahl an Karten gemischt wird.
 
-const fieldRef = document.getElementById('field');
+// const fieldRef = document.getElementById('field');
 const header = document.getElementById('header');
 
 const gameState = {
@@ -16,17 +16,31 @@ const gameState = {
     currentPlayer: true
 };
 
-init(fieldRef, header)
 
-function init(fieldRef: HTMLElement | null, display: HTMLElement | null) {
+startApp(); // 👉 DAS ist jetzt dein Einstiegspunkt
 
-    const deck = createDeck(boardSize);
-    gameStartPage(); //Game Start Page wird generiert
+function startApp() {
     createConfigScreen(); //Game Config Page wird generiert
-    headerHtml(header); //Game Header wird generiert
-    cardHtml(fieldRef, deck); //Card content wird generiert
-    flipCard(fieldRef); // Cards flippen
+    gameStartPage(); // 👈 Startscreen anzeigen
+    
 }
+
+export function init(
+    fieldRef: HTMLElement | null,
+    header: HTMLElement | null,
+    boardSize: number,
+    selectedPlayer: string
+) {
+    const deck = createDeck(boardSize);
+
+    gameState.currentPlayer = selectedPlayer === 'blue';
+
+    headerHtml(header);
+    cardHtml(fieldRef, deck);
+    flipCard(fieldRef);
+
+}
+
 
 function flipCard(fieldRef: HTMLElement | null) {
     if (!fieldRef) return;
