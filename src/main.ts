@@ -4,6 +4,7 @@ import { createDeck } from './utilities/shuffleArray';
 import { gameStartPage } from './pages/gameStartPage';
 import { createConfigScreen } from './pages/gameConfigPage';
 import { Card } from './model/card.class';
+import { gameExitHtml} from './pages/gameExitPage';
 
 
 const boardSize: number = 16; // Das muss abhängig sein vom Button (16, 24 oder 36) und wird an die Funktion cardHtml übergeben, damit die richtige Anzahl an Karten generiert wird. Außerdem muss es an createDeck übergeben werden, damit die richtige Anzahl an Karten gemischt wird.
@@ -23,6 +24,7 @@ startApp(); // 👉 DAS ist jetzt dein Einstiegspunkt
 function startApp() {
     createConfigScreen(); //Game Config Page wird generiert
     gameStartPage(); // 👈 Startscreen anzeigen
+    gameExitHtml(); // exit popup
 
 }
 

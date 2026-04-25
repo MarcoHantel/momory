@@ -2,6 +2,7 @@
 
 .theme-codeVibes {
   --primary: #{colours.$codeVibes-primaryDark};
+  --primaryOpacity: #{colours.$codeVibes-primaryDarkOpacity};
   --headerBackground: #{colours.$codeVibes-primaryDark};
   --buttonExit: #{colours.$codeVibes-buttonFilling};
 
@@ -10,10 +11,22 @@
 
   --buttonBorder: 1px solid #{colours.$color-buttonFrame};
   --buttonRadius: 0px;
+
+   --backgroundExit: #{colours.$color-white};
+
+  --dropShadow: #{none};
+
+  --popUpGameButtonHeight: #{57px};
+  --popUpGameButtonWidth: #{182px};
+
+  --popUpExitButtonHeight: #{57px};
+  --popUpExitButtonWidth: #{148px};
 }
 
+// Hell
 .theme-daPproject {
   --primary: #{colours.$daProject-petrol};
+  --primaryOpacity: #{colours.$daProject-darkPetrolOpacity};
   --buttonExit: #{colours.$daProject-buttonFilling};
   --headerBackground: #{colours.$daProject-header};
 
@@ -22,4 +35,14 @@
 
   --buttonBorder: 1px solid #{colours.$daProject-buttonFilling};
   --buttonRadius: 8px;
+
+  --backgroundExit: #{colours.$daProject-lightBlue};
+
+  --dropShadow: #{rgba(47, 46, 46, 0.2)};
+
+  --popUpGameButtonHeight: #{43px};
+  --popUpGameButtonWidth: #{140px};
+
+  --popUpExitButtonHeight: #{43px};
+  --popUpExitButtonWidth: #{144px};
 }
