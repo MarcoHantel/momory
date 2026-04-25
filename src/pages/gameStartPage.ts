@@ -24,7 +24,7 @@ export function gameStartPage() {
 }
 
 export function startConfig() {
-    document.getElementById('startScreen')?.classList.add('hidden'); // Startscreen verstecken
-    document.getElementById('configScreen')?.classList.remove('hidden'); // Config Screen anzeigen
+    document.getElementById('startScreen')?.classList.add('hidden');
+    document.getElementById('configScreen')?.classList.remove('hidden');
 
 }

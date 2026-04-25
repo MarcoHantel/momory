@@ -2,7 +2,8 @@ import './styles/style.scss';
 import { cardHtml } from './GameConfig';
 import { createDeck } from './utilities/shuffleArray';
 import { gameStartPage } from './pages/gameStartPage';
-import { createConfigScreen } from './pages/gameConfigPage';    
+import { createConfigScreen } from './pages/gameConfigPage';
+import { Card } from './model/card.class';
 
 
 const boardSize: number = 16; // Das muss abhängig sein vom Button (16, 24 oder 36) und wird an die Funktion cardHtml übergeben, damit die richtige Anzahl an Karten generiert wird. Außerdem muss es an createDeck übergeben werden, damit die richtige Anzahl an Karten gemischt wird.
@@ -22,79 +23,72 @@ startApp(); // 👉 DAS ist jetzt dein Einstiegspunkt
 function startApp() {
     createConfigScreen(); //Game Config Page wird generiert
     gameStartPage(); // 👈 Startscreen anzeigen
-    
+
 }
 
-export function init(
-    fieldRef: HTMLElement | null,
-    header: HTMLElement | null,
-    boardSize: number,
-    selectedPlayer: string
-) {
+export function init(fieldRef: HTMLElement | null, header: HTMLElement | null, boardSize: number, selectedPlayer: string, theme: string) {
     const deck = createDeck(boardSize);
 
     gameState.currentPlayer = selectedPlayer === 'blue';
 
-    headerHtml(header);
-    cardHtml(fieldRef, deck);
-    flipCard(fieldRef);
+    headerHtml(header, theme);
 
+    if (!fieldRef || !header) {
+        throw new Error("DOM elements missing");
+    }
+
+    const cardMap = cardHtml(fieldRef, deck); // ✅ HIER MUSS ES SEIN
+
+    flipCard(fieldRef, cardMap, theme); //NEW THEME
 }
 
 
-function flipCard(fieldRef: HTMLElement | null) {
+function flipCard(
+    fieldRef: HTMLElement | null,
+    cardMap: Map<HTMLButtonElement, Card>,
+    theme: string //NEW THEME
+) {
     if (!fieldRef) return;
 
-    // Speichert die erste gewählte Karte
-    let firstCard: HTMLButtonElement | null = null;
+    let firstCard: Card | null = null;
+    let secondCard: Card | null = null;
 
-    // Speichert die zweite gewählte Karte
-    let secondCard: HTMLButtonElement | null = null;
+    let firstEl: HTMLButtonElement | null = null;
+    let secondEl: HTMLButtonElement | null = null;
 
-    // Sperrt das Spielfeld während zwei Karten geprüft werden
     let lockBoard = false;
 
     fieldRef.addEventListener("click", event => {
-        const card = (event.target as HTMLElement).closest('.card') as HTMLButtonElement | null;
+        const el = (event.target as HTMLElement).closest('.card') as HTMLButtonElement | null;
 
-        // Abbruch, falls kein gültiges Kartenelement geklickt wurde
-        if (!card) return;
-
-        // Keine weiteren Klicks erlauben, solange zwei Karten geprüft werden
+        if (!el) return;
         if (lockBoard) return;
+        if (el === firstEl) return;
 
-        // Verhindert Doppelklick auf dieselbe Karte
-        if (card === firstCard) return;
+        const card = cardMap.get(el); // 🔥 HOL DIR DIE CARD
 
-        // Bereits gematchte Karten sollen nicht erneut anklickbar sein
-        if (card.classList.contains('matched')) return;
+        if (!card || card.isMatched) return;
 
-        // Karte visuell umdrehen
-        card.classList.add('is-flipped');
+        el.classList.add('is-flipped');
+        card.flip();
 
-        // Falls noch keine erste Karte gespeichert ist, diese Karte als erste merken
         if (!firstCard) {
             firstCard = card;
+            firstEl = el;
             return;
         }
 
-        // Sonst ist dies die zweite Karte
         secondCard = card;
-
-        // Board sperren, bis Vergleich abgeschlossen ist
+        secondEl = el;
         lockBoard = true;
 
-        // Karten vergleichen
         checkForMatch();
     });
 
     function checkForMatch() {
         if (!firstCard || !secondCard) return;
 
-        const firstValue = firstCard.dataset.card;
-        const secondValue = secondCard.dataset.card;
-
-        const isMatch = firstValue === secondValue;
+        const isMatch = firstCard.compareTo(secondCard); // 🔥 NEU
 
         if (isMatch) {
             disableCards();
@@ -104,23 +98,19 @@ function flipCard(fieldRef: HTMLElement | null) {
     }
 
     function disableCards() {
-        firstCard?.classList.add('matched');
-        secondCard?.classList.add('matched');
+        firstCard?.setMatched();
+        secondCard?.setMatched();
 
-        // Score erhöhen je nach aktuellem Spieler
+        firstEl?.classList.add('matched');
+        secondEl?.classList.add('matched');
+
         if (gameState.currentPlayer) {
             gameState.playerOneScore++;
         } else {
             gameState.playerTwoScore++;
         }
 
-        console.log('Punkt für:', gameState.currentPlayer ? 'Blue' : 'Orange');
-        console.log('blue:', gameState.playerOneScore, 'orange:', gameState.playerTwoScore);
-
-        // Header neu rendern
-        headerHtml(header);
-
-        // Spielende prüfen
+        headerHtml(header, theme);
         checkGameOver();
 
         resetTurn();
@@ -128,47 +118,52 @@ function flipCard(fieldRef: HTMLElement | null) {
 
     function unflipCards() {
         setTimeout(() => {
-            firstCard?.classList.remove('is-flipped');
-            secondCard?.classList.remove('is-flipped');
+            firstEl?.classList.remove('is-flipped');
+            secondEl?.classList.remove('is-flipped');
 
-            //Spieler wechseln
+            firstCard?.reset();
+            secondCard?.reset();
+
             gameState.currentPlayer = !gameState.currentPlayer;
 
-            console.log('Jetzt dran:', gameState.currentPlayer ? 'Blue' : 'Orange');
-
-            headerHtml(header);
+            headerHtml(header, theme);
 
             resetTurn();
         }, 1000);
     }
 
     function resetTurn() {
-        // Für den nächsten Zug alles zurücksetzen
         firstCard = null;
         secondCard = null;
+        firstEl = null;
+        secondEl = null;
         lockBoard = false;
     }
-
 }
 
 
+function headerHtml(header: HTMLElement | null, theme: string) {
 
-function headerHtml(header: HTMLElement | null) {
+    const assets = getThemeAssets(theme);
+    const playerImagePath: string = getPlayerImage(theme);
+
+
+
     header!.innerHTML = /*html*/`
     <div class="game__header">
         <div class="game__header--inner">
             <div class="game__display">
-                <div class="game__display--item--blue"> <img src="./src/images/items/playerOne.svg" alt="Player One"> Blue ${gameState.playerOneScore}</div>
-                <div class="game__display--item--orange"> <img src="./src/images/items/playerTwo.svg" alt="Player Two"> Orange ${gameState.playerTwoScore} </div>
+                <div class="game__display--item--blue"> <img src="${assets.playerOne}" alt="Player One"> ${assets.contentOne} ${gameState.playerOneScore}</div>
+                <div class="game__display--item--orange"> <img src="${assets.playerTwo}" alt="Player Two"> ${assets.contentTwo} ${gameState.playerTwoScore} </div>
             </div>
             <div class="current__player">
-             <div class="current__player--text">current player:
-                <img class="current__player--image" src="${gameState.currentPlayer ? './src/images/items/playerOne.svg' : './src/images/items/playerTwo.svg'}" alt="player signe">
+             <div class="current__player--text">Current player:
+                <img class="current__player--image" src="${playerImagePath}" alt="player signe">
              </div>
             </div>
             <a class="link__exit" href="#">
               <div class="button__exit">
-                 <img class="button__exit--image" src="src/images/items/exit.svg" alt="Exit Icon">
+                 <img class="button__exit--image" src="${assets.exit}" alt="Exit Icon">
                  <div class="button__exit--button">Exit game</div>
              </div>
             </a>
@@ -176,6 +171,46 @@ function headerHtml(header: HTMLElement | null) {
     </div>
     
     `;
+}
+
+type ThemeAssets = {
+    exit: string;
+    playerOne: string;
+    playerTwo: string;
+    contentOne: string;
+    contentTwo: string;
+};
+
+function getThemeAssets(theme: string): ThemeAssets {
+    if (theme === "codeVibes") {
+        return {
+            exit: "src/images/items/exit.svg",
+            playerOne: "./src/images/items/playerOne.svg",
+            playerTwo: "./src/images/items/playerTwo.svg",
+            contentOne: "Blue",
+            contentTwo: "Orange"
+        };
+    } else {
+        return {
+            exit: "src/images/items/da_exit.svg",
+            playerOne: "./src/images/items/da_player1.svg",
+            playerTwo: "./src/images/items/da_player2.jpg",
+            contentOne: "",
+            contentTwo: ""
+        };
+    }
+}
+
+function getPlayerImage(theme: string): string {
+    if (theme === "codeVibes") {
+        return gameState.currentPlayer
+            ? './src/images/items/playerOne.svg'
+            : './src/images/items/playerTwo.svg';
+    } else {
+        return gameState.currentPlayer
+            ? './src/images/items/da_player1.svg'
+            : './src/images/items/da_player2.jpg';
+    }
 }
 
 function checkGameOver() {
@@ -203,6 +238,3 @@ function endGame() {
         alert(winnerText); // hier dann HTML Seite bauen mit Gewinneranzeige, Button für neues Spiel etc.
     }, 500);
 }
-
-
-

@@ -3,7 +3,7 @@
 @use '../components/buttons.scss';
 
 .startScreen {
-    background-color: colours.$color-primaryDark;
+    background-color: var(--primary);
     height: 100vh;
     @include mixins.flex-column;
 }

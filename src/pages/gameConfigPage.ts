@@ -14,7 +14,7 @@ export function createConfigScreen() {
 <fieldset class="fieldset ">
   <legend class="settings__config"><img class="settings__config--img" src="./src/images/items/palette.svg" alt="palette"><p class="settings__config--headline">Game themes</p></legend>
   <div class="settings__config--optins">
-    <input type="radio" id="CodeVibes" name="theme" value="CodeVibes" checked />
+    <input type="radio" id="CodeVibes" name="theme" value="codeVibes" checked />
     <label for="CodeVibes">Code vibes</label>
   </div>
 
@@ -62,7 +62,7 @@ export function createConfigScreen() {
 
 <div class="config-screen__image">
     
-    <img src="./src/images/items/theme_Visual.svg" alt="config theme">
+    <img id="imageGame" src="./src/images/items/theme_Visual.svg" alt="config theme">
 
     <div class="config-screen__image--text" >
         <div>Game theme</div>
@@ -78,6 +78,15 @@ export function createConfigScreen() {
 
 </div>
     `;
+
+const inputs = document.querySelectorAll('input[name="theme"]');
+
+inputs.forEach(input => {
+    input.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        changeImage(target.value);
+    });
+});
 
 
     const startBtn = document.getElementById('start-game-btn');
@@ -113,11 +122,24 @@ function startGame(theme: string, player: string, size: number) {
     document.getElementById('gameScreen')?.classList.remove('hidden');
 
     // 👉 SPIEL STARTEN
-    init(fieldRef, header, size, player);
+    init(fieldRef, header, size, player, theme);
 }
 
 function applyTheme(theme: string) {
     document.body.className = ''; // alles resetten
 
     document.body.classList.add(`theme-${theme}`);
+}
+
+
+
+function changeImage(theme: string) {
+    const image = document.getElementById('imageGame') as HTMLImageElement;
+
+    if (!image) return;
+
+    image.src =
+        theme === 'codeVibes'
+            ? './src/images/items/theme_Visual.svg'
+            : './src/images/items/Da.svg';
 }

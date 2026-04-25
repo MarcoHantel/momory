@@ -5,6 +5,7 @@
 @use './pages/_gamestartpage.scss';
 @use './pages/_gameoverpage.scss';
 @use './pages/_gameconfigpage.scss';
+@use './themes/_theme.scss';
 @import './abstract/fonts.scss';
 
 
@@ -12,7 +13,7 @@
 
 body {
     height: 100vh;
-    background-color: colours.$color-primaryDark;
+    background: colours.$codeVibes-primaryDark;
     margin: 0;
     // margin-top: 30px;
     font-family: 'Red Rose', cursive;

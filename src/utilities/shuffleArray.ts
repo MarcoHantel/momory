@@ -1,13 +1,24 @@
 
 import { cardFace } from "../GameConfig";
+import { Card } from "../model/card.class"; // Pfad ggf. anpassen
 
-export function createDeck(boardSize: number) {
+export function createDeck(boardSize: number): Card[] {
     const pairCount: number = boardSize / 2;
 
-    const selectedCards = [...cardFace].slice(0, pairCount); // „Erstelle eine Kopie von cardFace und nimm daraus nur so viele Motive, wie ich für die Anzahl der Paare brauche.“
-    const doubleCards = [...selectedCards, ...selectedCards];     // „Erstelle ein neues Array, das die ausgewählten Motive zweimal enthält.“
-    const shuffledDeck = shuffleArray(doubleCards);     // „Mische die Karten, damit sie in zufälliger Reihenfolge angeordnet sind.“
-    return shuffledDeck;
+    // 1. Karten auswählen
+    const selectedCards = [...cardFace].slice(0, pairCount);
+
+    // 2. Paare erstellen
+    const doubleCards = [...selectedCards, ...selectedCards];
+
+    // 3. Mischen
+    const shuffledDeck = shuffleArray(doubleCards);
+
+    // 4. 👉 Hier passiert die Magie:
+    // Strings → Card Objekte
+    const cardObjects = shuffledDeck.map(value => new Card(value));
+
+    return cardObjects;
 }
 
 function shuffleArray(array: string[]): string[] {

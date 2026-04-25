@@ -1,12 +1,15 @@
 @use '../abstract/mixins.scss';
 @use '../abstract/_colours.scss';
-@use '../pages/gameconfigpage';
- @import '../abstract/fonts.scss';
+@use '../pages/_gameconfigpage.scss';
+@use '../themes/_theme.scss';
+@import '../abstract/fonts.scss';
 
 .button__exit {
     @include mixins.flex-center;
-    background-color: colours.$color-buttonFilling;
-    border: 1px solid colours.$color-buttonFrame;
+    background: var(--buttonExit);
+    border: var(--buttonBorder);
+    border-radius: var(--buttonRadius);
+
 
     gap: 10px;
     width: 207px;
@@ -21,7 +24,7 @@
 
 .link__exit {
     text-decoration: none;
-    color: colours.$color-white;
+    color: var(--fontColor);
     font-weight: 700;
     font-style: bold;
     font-size: 24px;
@@ -36,26 +39,26 @@
     padding: 24px;
     gap: 20px;
 
-    &:hover{
+    &:hover {
         cursor: pointer;
     }
 
-    &--text{
+    &--text {
         font-size: 40px;
         font-weight: 700;
     }
 
-    &--imgC{
+    &--imgC {
         width: 44px;
         height: 32px;
     }
 
-    &--imgA{
+    &--imgA {
         width: 33px;
     }
 }
 
-.config-screen__image--btn{
+.config-screen__image--btn {
     @include mixins.flex-center;
     width: 126px;
     height: 53px;

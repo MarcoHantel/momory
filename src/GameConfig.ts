@@ -1,3 +1,5 @@
+import { Card } from './model/card.class';
+
 export const cardFace: string[] = [
     'src/images/cardFace/angular.svg',
     'src/images/cardFace/bootstrap.svg',
@@ -22,27 +24,58 @@ export const cardFace: string[] = [
 // export let currentPlayer = true; //true = player one, false = player two
 export const match: boolean = false; //true = match, false = no match
 
-export function cardHtml(fieldRef: HTMLElement | null, deck: string[]) {
-    if (!fieldRef) return;
+// export function cardHtml(fieldRef: HTMLElement | null, deck: Card[]) {
+//     if (!fieldRef) return;
 
+//     fieldRef.innerHTML = '';
+
+//     for (let i = 0; i < deck.length; i++) {
+//         cardHtmlContent(fieldRef, deck[i]);
+//     }
+// }
+
+// function cardHtmlContent(fieldRef: HTMLElement, card: Card) {
+//     fieldRef.innerHTML += `
+//         <button class="card" data-card="${card.value}">
+//             <div class="card__inner">
+//                 <div class="card__face">
+//                     <img class="card__image" src="src/images/cardBack/cardBack1.svg" alt="Card Back">
+//                 </div>
+//                 <div class="card__face card__face--back">
+//                     <img class="card__image" src="${card.value}" alt="Card Face">
+//                 </div>
+//             </div>
+//         </button>
+//     `;
+// }
+
+export function cardHtml(fieldRef: HTMLElement, deck: Card[]) {
+    if (!fieldRef) {
+    throw new Error("fieldRef is null - DOM not ready");
+}
     fieldRef.innerHTML = '';
 
-    for (let i = 0; i < deck.length; i++) {
-        cardHtmlContent(fieldRef, deck[i], i);
-    }
-}
+    const map = new Map<HTMLButtonElement, Card>();
 
-function cardHtmlContent(fieldRef: HTMLElement, cardImage: string, index: number) {
-    fieldRef.innerHTML += /*html*/`
-        <button class="card" data-card="${cardImage}" data-index="${index}">
+    deck.forEach(card => {
+        const button = document.createElement('button');
+        button.classList.add('card');
+
+        button.innerHTML = `
             <div class="card__inner">
                 <div class="card__face">
-                    <img class="card__image" src="src/images/cardBack/cardBack1.svg" alt="Card Back">
+                    <img src="src/images/cardBack/cardBack1.svg">
                 </div>
                 <div class="card__face card__face--back">
-                    <img class="card__image" src="${cardImage}" alt="Card Face">
+                    <img src="${card.value}">
                 </div>
             </div>
-        </button>
-    `;
+        `;
+
+        fieldRef.appendChild(button);
+
+        map.set(button, card); // 🔥 Verbindung herstellen
+    });
+
+    return map;
 }

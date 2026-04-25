@@ -1,0 +1,25 @@
+@use '../abstract/_colours.scss';
+
+.theme-codeVibes {
+  --primary: #{colours.$codeVibes-primaryDark};
+  --headerBackground: #{colours.$codeVibes-primaryDark};
+  --buttonExit: #{colours.$codeVibes-buttonFilling};
+
+  --fontColor: #{colours.$color-white};
+  --playerBackground: #{colours.$codeVibes-buttonFilling};
+
+  --buttonBorder: 1px solid #{colours.$color-buttonFrame};
+  --buttonRadius: 0px;
+}
+
+.theme-daPproject {
+  --primary: #{colours.$daProject-petrol};
+  --buttonExit: #{colours.$daProject-buttonFilling};
+  --headerBackground: #{colours.$daProject-header};
+
+  --fontColor: #{colours.$daProject-darkPetrol};
+  --playerBackground: #{colours.$color-white};
+
+  --buttonBorder: 1px solid #{colours.$daProject-buttonFilling};
+  --buttonRadius: 8px;
+}

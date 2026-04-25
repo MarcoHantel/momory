@@ -1,5 +1,6 @@
 @use '../abstract/_colours.scss';
 @use '../abstract/_mixins.scss';
+@use '../themes/_theme.scss';
 
 
 
@@ -8,13 +9,13 @@
     width: 100vw;
     height: 100vh;
     @include mixins.flex-column;
-    background-color: colours.$color-primaryDark;
+    background-color: var(--primary);
 
     #field {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
-        background-color: colours.$color-primaryDark;
+        background-color: var(--primary);
     }
 }
 
