@@ -68,3 +68,42 @@
     font-weight: bold;
 
 }
+
+// pop-up
+.exit__buttons {
+    @include mixins.flex-center;
+    gap: 24px;
+    margin-top: 64px;
+
+
+    &--btnGame {
+        background-color: var(--backgroundButtonGame);
+        border: var(--buttonBorder);
+        border-radius: var(--buttonRadius);
+        box-shadow: 3px 3px 5px 0px var(--dropShadow);
+        color: var(--popUpGameButtonText);
+
+        width: var(--popUpGameButtonWidth);
+        height: var(--popUpGameButtonHeight);
+
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    &--btnExit {
+
+
+        background-color: var(--popUpExitButtonfilling);
+        border: var(--buttonBorder);
+        border-radius: var(--buttonRadius);
+        box-shadow: 3px 3px 5px 0px var(--dropShadow);
+        color: var(--popUpExitButtonText);
+
+        width: var(--popUpExitButtonWidth);
+        height: var(--popUpExitButtonHeight);
+
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+}

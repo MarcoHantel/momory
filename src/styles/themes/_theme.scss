@@ -18,9 +18,15 @@
 
   --popUpGameButtonHeight: #{57px};
   --popUpGameButtonWidth: #{182px};
+  --backgroundButtonGame: #{colours.$color-buttonFrame};
+  --popUpGameButtonText: #{colours.$color-white};
 
   --popUpExitButtonHeight: #{57px};
   --popUpExitButtonWidth: #{148px};
+  --popUpExitButtonfilling: #{colours.$color-buttonFilling};
+  --popUpExitButtonText: #{colours.$color-buttonFrame};
+
+  --popUpText: #{colours.$codeVibes-primaryDark};
 }
 
 // Hell
@@ -42,7 +48,13 @@
 
   --popUpGameButtonHeight: #{43px};
   --popUpGameButtonWidth: #{140px};
+  --backgroundButtonGame: #{colours.$daProject-buttonFilling};
+  --popUpGameButtonText: #{colours.$daProject-darkPetrol};
 
   --popUpExitButtonHeight: #{43px};
-  --popUpExitButtonWidth: #{144px};
+  --popUpExitButtonWidth: #{114px};
+  --popUpExitButtonfilling: #{rgba(253, 138, 129, 1)};
+  --popUpExitButtonText: #{colours.$color-white};
+
+  --popUpText: #{colours.$daProject-superDrakPetrol};
 }

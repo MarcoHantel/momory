@@ -16,30 +16,17 @@
     height: 253px;
     border-radius: 20px;
     padding: 40px;
+    font-weight: 700;
 
 
     &--text {
         text-align: center;
-    }
-}
 
-.exit__buttons {
-    @include mixins.flex-center;
-    gap: 40px;
+        p {
+            font-size: 28px;
+            line-height: 40px;
+            color: var(--popUpText);
 
-    &--btnGame {
-        background-color: red;
-        width: var(--popUpGameButtonWidth) ;
-        height: var(--popUpGameButtonHeight) ;
-
-    }
-
-    &--btnExit {
-        background-color: var(--buttonExit);
-        border: var(--buttonBorder);
-        border-radius: var(--buttonRadius);
-        box-shadow:3px 3px 5px 0px var(--dropShadow);
-        width: var(--popUpExitButtonWidth) ;
-        height: var(--popUpExitButtonHeight) ;
+        }
     }
 }
