@@ -33,6 +33,13 @@
   --gameOverScoreWidth: #{324px};
   --gameOverScoreHeight: #{62px};
   --gameOverScoreBoard: #{colours.$daProject-buttonFilling};
+
+  --gameWinnerButtonWidht: #{204px};
+  --gameWinnerButtonheight: #{62px};
+  --gameWinnerButtonTextSize: #{24px};
+  --gameWinnerHeadlindColor: #{colours.$color-orange};
+
+  --fontFamily: #{'Red Rose'};
 }
 
 // Hell
@@ -69,4 +76,11 @@
   --gameOverScoreWidth: #{220px};
   --gameOverScoreHeight: #{76px};
   --gameOverScoreBoard: #{colours.$color-white};
+
+  --gameWinnerButtonWidht: #{96px};
+  --gameWinnerButtonheight: #{48px};
+  --gameWinnerButtonTextSize: #{20px};
+  --gameWinnerHeadlindColor: #{colours.$color-white};
+
+  --fontFamily: #{'Figtree'};
 }

@@ -66,7 +66,18 @@
     gap: 8px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 20px;
 
+    transition: transform 0.1s ease, font-size 0.1s ease;
+
+    &:hover {
+        transform: scale(1.1);
+        font-size: 22px;
+
+        img {
+            transform: rotate(-10deg);
+        }
+    }
 }
 
 // pop-up
@@ -104,6 +115,26 @@
 
         font-weight: 700;
         cursor: pointer;
+    }
+
+}
+
+.gamewinner__winner {
+
+    &--btn {
+        background-color: var(--backgroundButtonGame);
+        border: var(--buttonBorder);
+        border-radius: var(--buttonRadius);
+        width: var(--gameWinnerButtonWidht);
+        height: var(--gameWinnerButtonheight);
+
+        p {
+            color: var(--popUpGameButtonText);
+            font-size: var(--gameWinnerButtonTextSize);
+            font-weight: bold;
+            font-family: var(--fontFamily);
+            margin: 0px;
+        }
     }
 
 }

@@ -15,9 +15,6 @@ const boardSize: number = 16; // Das muss abhängig sein vom Button (16, 24 oder
 const header: HTMLElement | null = document.getElementById('header');
 
 export const gameState = {
-    // playerOneScore: 0,
-    // playerTwoScore: 0,
-    // currentPlayer: true
 
     playerOneScore: 0,
     playerTwoScore: 0,
@@ -32,13 +29,13 @@ startApp(); // 👉 DAS ist jetzt dein Einstiegspunkt
 
 function startApp() {
 
-    // let winnerText = 'Lalala'; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn
+    let winnerText: string = 'Lalala'; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn
 
     createConfigScreen(); //Game Config Page wird generiert
     gameStartPage(); // Startscreen anzeigen
     gameExitHtml(); // exit popup
     // gameOverHtml(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn 
-    // gameWinnerHtml();
+    gameWinnerHtml(winnerText);
 }
 
 export function init(fieldRef: HTMLElement | null, header: HTMLElement | null, boardSize: number, selectedPlayer: string) {
@@ -200,6 +197,8 @@ type ThemeAssets = {
     playerTwo: string;
     contentOne: string;
     contentTwo: string;
+    orangePlayer: string;
+     bluePlayer: string;
 };
 
 export function getThemeAssets(theme: string): ThemeAssets {
@@ -209,7 +208,9 @@ export function getThemeAssets(theme: string): ThemeAssets {
             playerOne: "./src/images/items/playerOne.svg",
             playerTwo: "./src/images/items/playerTwo.svg",
             contentOne: "Blue",
-            contentTwo: "Orange"
+            contentTwo: "Orange",
+            orangePlayer: "./src/images/items/player-orange-vibes.svg",
+            bluePlayer: "./src/images/items/player-blue-vibes.svg"
         };
     } else {
         return {
@@ -217,7 +218,9 @@ export function getThemeAssets(theme: string): ThemeAssets {
             playerOne: "./src/images/items/da_player1.svg",
             playerTwo: "./src/images/items/da_player2.jpg",
             contentOne: "",
-            contentTwo: ""
+            contentTwo: "",
+            orangePlayer: "./src/images/items/player-orange-da.svg",
+            bluePlayer: "./src/images/items/player-blue-da.svg"
         };
     }
 }
@@ -258,7 +261,7 @@ function showScore() {
 function showWinner() {
     const winnerText = getWinnerText();
 
-    gameWinnerHtml();
+    gameWinnerHtml(winnerText);
 
     document.getElementById('gameWinnerScreen')?.classList.remove('hidden');
     document.getElementById('gameOverScreen')?.classList.add('hidden');
@@ -266,9 +269,9 @@ function showWinner() {
 
 function getWinnerText(): string {
     if (gameState.playerOneScore > gameState.playerTwoScore) {
-        return 'Player Blue wins!';
+        return 'Blue player';
     } else if (gameState.playerTwoScore > gameState.playerOneScore) {
-        return 'Player Orange wins!';
+        return 'Orange player';
     } else {
         return 'Draw!';
     }
