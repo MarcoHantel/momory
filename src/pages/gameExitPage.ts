@@ -27,12 +27,14 @@ export function gameExitHtml() {
 
 function backToGame() {
     console.log('reomve the exitscreen');
-    
+
     document.getElementById('exitScreen')?.classList.add('hidden');
 }
 
-function quitGame(){
-    document.getElementById('startScreen')?.classList.remove('hidden');
-    document.getElementById('exitScreen')?.classList.add('hidden'); 
+function quitGame() {
+    // document.getElementById('startScreen')?.classList.remove('hidden');
+    document.getElementById('configScreen')?.classList.remove('hidden');
+    document.getElementById('exitScreen')?.classList.add('hidden');
     document.getElementById('gameScreen')?.classList.add('hidden');
 }
+

@@ -1,18 +1,19 @@
 import { gameState } from "../main";
 import { getThemeAssets } from "../main";
 
-export function gameOverHtml() {
+export function gameWinnerHtml(){
 
-    const gameOverScreen = document.getElementById('gameOverScreen');
-    if (!gameOverScreen) return;
+
+        const gameWinnerScreen = document.getElementById('gameWinnerScreen');
+    if (!gameWinnerScreen) return;
 
     const assets = getThemeAssets(gameState.theme);
 
     console.log('text', assets.contentOne, 'player', gameState.playerOneScore);
 
-    gameOverScreen.innerHTML = /*html*/`
+    gameWinnerScreen.innerHTML = /*html*/`
         <div class="gameover__winner">
-            <h2 class="gameover__winner--h2">Game over</h2>
+            <h2 class="gameover__winner--h2">Winner</h2>
             <div class="gameover__winner--text">Final score</div>
             <div class="gameover__score">
                 <div class="gameover__score__player">
@@ -29,4 +30,5 @@ export function gameOverHtml() {
             </div>
         </div>
     `;
+
 }

@@ -6,6 +6,7 @@ import { createConfigScreen } from './pages/gameConfigPage';
 import { Card } from './model/card.class';
 import { gameExitHtml } from './pages/gameExitPage';
 import { gameOverHtml } from './pages/gameOverPage';
+import { gameWinnerHtml } from './pages/gameWinnerPage';
 
 
 const boardSize: number = 16; // Das muss abhängig sein vom Button (16, 24 oder 36) und wird an die Funktion cardHtml übergeben, damit die richtige Anzahl an Karten generiert wird. Außerdem muss es an createDeck übergeben werden, damit die richtige Anzahl an Karten gemischt wird.
@@ -30,14 +31,14 @@ export const gameState = {
 startApp(); // 👉 DAS ist jetzt dein Einstiegspunkt
 
 function startApp() {
-   
-// let winnerText = 'Lalala'; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn
+
+    // let winnerText = 'Lalala'; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn
 
     createConfigScreen(); //Game Config Page wird generiert
     gameStartPage(); // Startscreen anzeigen
     gameExitHtml(); // exit popup
-    // gameOverHtml(winnerText); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn 
-
+    // gameOverHtml(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn 
+    // gameWinnerHtml();
 }
 
 export function init(fieldRef: HTMLElement | null, header: HTMLElement | null, boardSize: number, selectedPlayer: string) {
@@ -238,24 +239,40 @@ function checkGameOver() {
     const totalScore = gameState.playerOneScore + gameState.playerTwoScore;
 
     if (totalScore === totalPairs) {
-        endGame();
+        showScore();
     }
 }
 
-function endGame() {
-    let winnerText: string = '';
+function showScore() {
+    // Score anzeigen
+    gameOverHtml();
+    document.getElementById('gameOverScreen')?.classList.remove('hidden');
+    document.getElementById('gameOverScreen')?.classList.add('hidden');
 
-    if (gameState.playerOneScore > gameState.playerTwoScore) {
-        winnerText = 'Player Blue wins!';
-    } else if (gameState.playerTwoScore > gameState.playerOneScore) {
-        winnerText = 'Player Orange wins!';
-    } else {
-        winnerText = 'Draw!';
-    }
-
+    // 👉 nach 3 Sekunden → Winner
     setTimeout(() => {
-        gameOverHtml(winnerText); // 🔥 HIER
-        document.getElementById('gameOverScreen')?.classList.remove('hidden');
-    }, 500);
+        showWinner();
+    }, 3000);
 }
+
+function showWinner() {
+    const winnerText = getWinnerText();
+
+    gameWinnerHtml();
+
+    document.getElementById('gameWinnerScreen')?.classList.remove('hidden');
+    document.getElementById('gameOverScreen')?.classList.add('hidden');
+}
+
+function getWinnerText(): string {
+    if (gameState.playerOneScore > gameState.playerTwoScore) {
+        return 'Player Blue wins!';
+    } else if (gameState.playerTwoScore > gameState.playerOneScore) {
+        return 'Player Orange wins!';
+    } else {
+        return 'Draw!';
+    }
+}
+
+
 
