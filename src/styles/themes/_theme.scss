@@ -37,7 +37,9 @@
   --gameWinnerButtonWidht: #{204px};
   --gameWinnerButtonheight: #{62px};
   --gameWinnerButtonTextSize: #{24px};
-  --gameWinnerHeadlindColor: #{colours.$color-orange};
+  --gameWinnerHeadlindColorOrange: #{colours.$color-orange};
+  --gameWinnerHeadlindColorBlue: #{colours.$color-winnerblue};
+  --gameWinnerHeadlindColor: #{colours.$color-lightGrey};
 
   --fontFamily: #{'Red Rose'};
 }
@@ -80,7 +82,9 @@
   --gameWinnerButtonWidht: #{96px};
   --gameWinnerButtonheight: #{48px};
   --gameWinnerButtonTextSize: #{20px};
-  --gameWinnerHeadlindColor: #{colours.$color-white};
+  --gameWinnerHeadlindColorOrange: #{colours.$color-orange};
+  --gameWinnerHeadlindColorBlue: #{colours.$color-winnerblue};
+  --gameWinnerHeadlindColor: #{colours.$color-lightGrey};
 
   --fontFamily: #{'Figtree'};
 }

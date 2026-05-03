@@ -3,6 +3,7 @@ import { gameState } from "../main";
 
 export function createConfigScreen() {
 
+
     document.getElementById('configScreen')!.innerHTML = /*html*/`
 
 <div class="config-screen__settings">

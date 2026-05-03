@@ -21,7 +21,8 @@ export const gameState = {
     currentPlayer: true,
     theme: "codeVibes",
     player: "blue",
-    boardSize: 16
+    boardSize: 16,
+    drawGame: ''
 };
 
 
@@ -198,7 +199,8 @@ type ThemeAssets = {
     contentOne: string;
     contentTwo: string;
     orangePlayer: string;
-     bluePlayer: string;
+    bluePlayer: string;
+    drawGame: string;
 };
 
 export function getThemeAssets(theme: string): ThemeAssets {
@@ -210,7 +212,8 @@ export function getThemeAssets(theme: string): ThemeAssets {
             contentOne: "Blue",
             contentTwo: "Orange",
             orangePlayer: "./src/images/items/player-orange-vibes.svg",
-            bluePlayer: "./src/images/items/player-blue-vibes.svg"
+            bluePlayer: "./src/images/items/player-blue-vibes.svg",
+            drawGame: "src/images/items/player_draw_codevibes.png"
         };
     } else {
         return {
@@ -220,7 +223,8 @@ export function getThemeAssets(theme: string): ThemeAssets {
             contentOne: "",
             contentTwo: "",
             orangePlayer: "./src/images/items/player-orange-da.svg",
-            bluePlayer: "./src/images/items/player-blue-da.svg"
+            bluePlayer: "./src/images/items/player-blue-da.svg",
+            drawGame: "src/images/items/player_draw_da.png"
         };
     }
 }

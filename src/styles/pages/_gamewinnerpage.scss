@@ -11,24 +11,53 @@
     width: 100%;
 }
 
+// .gamewinner__winner {
+
+//     &--text {
+//         font-weight: 400;
+//         font-size: 40px;
+//         color: colours.$color-white;
+//         font-family: var(--fontFamily);
+//         margin: 4px;
+
+//     }
+
+//     &--h2 {
+//         color: var(--gameWinnerHeadlindColor);
+//         font-weight: 700;
+//         font-size: 80px;
+//         font-family: var(--fontFamily);
+//         margin-block-end: 64px;
+//         margin-block-start: 8px;
+//         box-shadow: var(--dropShadow);
+//     }
+
+//     &--image {
+//         width: 200px;
+//         height: 250px;
+//     }
+
+// }
+
 .gamewinner__winner {
+    @include mixins.flex-column;
 
     &--text {
         font-weight: 400;
         font-size: 40px;
         color: colours.$color-white;
         font-family: var(--fontFamily);
-        margin: 8px;
-
+        margin: 4px;
     }
 
     &--h2 {
+        // ❗ Default (Fallback)
         color: var(--gameWinnerHeadlindColor);
         font-weight: 700;
         font-size: 80px;
         font-family: var(--fontFamily);
-        margin-block-end: 32px;
-        margin-block-start: 16px;
+        margin-block-end: 64px;
+        margin-block-start: 8px;
         box-shadow: var(--dropShadow);
     }
 
@@ -37,4 +66,22 @@
         height: 250px;
     }
 
+    // 🔥 NEU: Gewinner-Zustände
+    &.winner-blue {
+        .gamewinner__winner--h2 {
+            color: var(--gameWinnerHeadlindColorBlue);
+        }
+    }
+
+    &.winner-orange {
+        .gamewinner__winner--h2 {
+            color: var(--gameWinnerHeadlindColorOrange);
+        }
+    }
+
+    &.winner-draw {
+        .gamewinner__winner--h2 {
+            color: grey; // oder eigene Variable
+        }
+    }
 }

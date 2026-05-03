@@ -122,11 +122,12 @@
 .gamewinner__winner {
 
     &--btn {
-        background-color: var(--backgroundButtonGame);
+        background-color: var(--popUpExitButtonfilling);
         border: var(--buttonBorder);
         border-radius: var(--buttonRadius);
         width: var(--gameWinnerButtonWidht);
         height: var(--gameWinnerButtonheight);
+        margin-top: 64px;
 
         p {
             color: var(--popUpGameButtonText);
