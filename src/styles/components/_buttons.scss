@@ -39,8 +39,20 @@
     padding: 24px;
     gap: 20px;
 
+    transition: transform 0.5s ease, font-size 0.5s ease;
+
     &:hover {
         cursor: pointer;
+        transform: scale(1.2);
+        font-size: 22px;
+
+        .start-screen__btn--imgC {
+            transform: rotate(-10deg) scale(1.2);
+        }
+
+        .start-screen__btn--imgA {
+            transform: scale(1.5);
+        }
     }
 
     &--text {
@@ -51,10 +63,12 @@
     &--imgC {
         width: 44px;
         height: 32px;
+        transition: transform 0.5s ease-in-out;
     }
 
     &--imgA {
         width: 33px;
+        transition: transform 0.5s ease-in-out;
     }
 }
 

@@ -9,9 +9,7 @@ import { gameOverHtml } from './pages/gameOverPage';
 import { gameWinnerHtml } from './pages/gameWinnerPage';
 
 
-const boardSize: number = 16; // Das muss abhängig sein vom Button (16, 24 oder 36) und wird an die Funktion cardHtml übergeben, damit die richtige Anzahl an Karten generiert wird. Außerdem muss es an createDeck übergeben werden, damit die richtige Anzahl an Karten gemischt wird.
-
-// const fieldRef = document.getElementById('field');
+const boardSize: number = 16; 
 const header: HTMLElement | null = document.getElementById('header');
 
 export const gameState = {
@@ -25,18 +23,12 @@ export const gameState = {
     drawGame: ''
 };
 
-
-startApp(); // Einstiegspunkt
+startApp();
 
 function startApp() {
-
-    // let winnerText: string = 'Lalala'; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn
-
-    createConfigScreen(); //Game Config Page wird generiert
-    gameStartPage(); // Startscreen anzeigen
-    gameExitHtml(); // exit popup
-    // gameOverHtml(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Später wieder rausnehmen, nur für Deisgn 
-    // gameWinnerHtml(winnerText);
+    createConfigScreen(); 
+    gameStartPage(); 
+    gameExitHtml(); 
 }
 
 export function init(fieldRef: HTMLElement | null, header: HTMLElement | null, boardSize: number, selectedPlayer: string) {
@@ -52,14 +44,14 @@ export function init(fieldRef: HTMLElement | null, header: HTMLElement | null, b
 
     const cardMap = cardHtml(fieldRef, deck);
 
-    flipCard(fieldRef, cardMap); //NEW THEME
+    flipCard(fieldRef, cardMap); 
 }
 
 
 function flipCard(
     fieldRef: HTMLElement | null,
     cardMap: Map<HTMLButtonElement, Card>,
-    // gameState.theme: string //NEW THEME
+  
 ) {
     if (!fieldRef) return;
 
@@ -78,7 +70,7 @@ function flipCard(
         if (lockBoard) return;
         if (el === firstEl) return;
 
-        const card = cardMap.get(el); // 🔥 HOL DIR DIE CARD
+        const card = cardMap.get(el); 
 
         if (!card || card.isMatched) return;
 
@@ -101,7 +93,7 @@ function flipCard(
     function checkForMatch() {
         if (!firstCard || !secondCard) return;
 
-        const isMatch = firstCard.compareTo(secondCard); // 🔥 NEU
+        const isMatch = firstCard.compareTo(secondCard); 
 
         if (isMatch) {
             disableCards();
@@ -183,7 +175,6 @@ function headerHtml(header: HTMLElement | null) {
     
     `;
 
-    // Spiel final beenden 
     const extBtn = header!.querySelector('.button__exit');
     extBtn?.addEventListener('click', exitTheGame);
 }
@@ -255,7 +246,7 @@ function checkGameOver() {
 }
 
 function showScore() {
-    // Score anzeigen
+
     gameOverHtml();
     document.getElementById('gameOverScreen')?.classList.remove('hidden');
     document.getElementById('gameOverScreen')?.classList.add('hidden');

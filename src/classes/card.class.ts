@@ -1,10 +1,10 @@
-class Card {
+// class Card {
 
 
-    constructor() {
-        function init() {
-            console.log('Card class initialized');
-        };
+//     constructor() {
+//         function init() {
+//             console.log('Card class initialized');
+//         };
 
-    }
-}
+//     }
+// }
